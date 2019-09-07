@@ -1,54 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { ListGroup, ListGroupItem, Button} from 'reactstrap';
+import { addVehicle, deleteVehicle, getVehicles } from '../actions/vehiclesActions';
 import uuid from 'uuid';
+import PropTypes from 'prop-types';
 
 class Vehicles extends Component {
 
-    state = {
-        vehicles: [
-            {
-                minSpeed: 0,
-                _id: uuid(),
-                name: "My XC90",
-                type: "Car",
-                color: "Silver",
-                make: "Volvo",
-                model: "XC90",
-                noOfWheels: 4,
-                maxSpeed: 180,
-            },
-            {
-                minSpeed: 0,
-                _id: uuid(),
-                name: "My NC750x",
-                type: "Motorcycle",
-                color: "White",
-                make: "Honda",
-                model: "NC750x",
-                noOfWheels: 2,
-                maxSpeed: 190,
-            },
-            {
-                minSpeed: 0,
-                _id: uuid(),
-                name: "My R8",
-                type: "Car",
-                color: "Black",
-                make: "Audi",
-                model: "R8",
-                noOfWheels: 4,
-                maxSpeed: 350,
-            }
-        ]
-    }
-
-    deleteVehicle = id => {
-        this.setState({
-            vehicles: this.state.vehicles.filter(vehicle => vehicle._id !== id)
-        });
+    // Get vehicles when component has mounted
+    componentDidMount() {
+        this.props.getVehicles();
     }
 
     addVehicle = () => {
+
+        // Prepare new vehicle object
         let newVehicle = {};
         newVehicle.name=prompt("Name?");
         newVehicle.type=prompt("Type?");
@@ -60,25 +26,21 @@ class Vehicles extends Component {
         newVehicle.minSpeed=0;
         newVehicle._id=uuid();
 
-        this.setState({
-            vehicles: [
-                ...this.state.vehicles,
-                newVehicle
-            ]
-        });
+        this.props.addVehicle(newVehicle);
     }
 
     render() {
+        const { vehicles } = this.props.vehicle;
         return (
             <div>
                 <ListGroup className='mb-3'>
-                    {this.state.vehicles.map(vehicle => 
+                    {vehicles.map(vehicle => 
                         <ListGroupItem key={vehicle._id}>
                             <Button
                                 color='danger'
                                 size='sm'
                                 className='mr-2'
-                                onClick={this.deleteVehicle.bind(this, vehicle._id)}
+                                onClick={this.props.deleteVehicle.bind(this, vehicle._id)}
                             >&times;</Button>
                             {vehicle.name}
                         </ListGroupItem>
@@ -93,4 +55,15 @@ class Vehicles extends Component {
     }
 }
 
-export default Vehicles;
+Vehicles.propTypes = {
+    vehicle: PropTypes.object.isRequired,
+    addVehicle: PropTypes.func.isRequired,
+    deleteVehicle: PropTypes.func.isRequired,
+    getVehicles: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+    vehicle: state.vehicles
+});
+
+export default connect(mapStateToProps, { addVehicle, deleteVehicle, getVehicles })(Vehicles);

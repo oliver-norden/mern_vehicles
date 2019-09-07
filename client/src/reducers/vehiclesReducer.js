@@ -11,8 +11,8 @@ export default function (state=initialState, action) {
             return {
                 ...state,
                 vehicles: [
-                    ...state.vehicles,
-                    action.payload
+                    action.payload,
+                    ...state.vehicles
                 ]
             };
         case GET_VEHICLES:

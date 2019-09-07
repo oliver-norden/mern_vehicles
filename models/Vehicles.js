@@ -39,6 +39,10 @@ const VehicleSchema = new Schema({
         type: Number,
         required: true
     },
+    speed : {
+        type: Number,
+        default: 0
+    },
     loadingCapacity: {
         type: Number,
         required: false

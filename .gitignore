@@ -1,2 +1,10 @@
+# Dependencies
 config
 node_modules
+client/node_modules
+
+# Production
+client/build
+
+# testing
+client/coverage

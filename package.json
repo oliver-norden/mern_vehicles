@@ -1,0 +1,26 @@
+{
+  "name": "mern_vehicles",
+  "version": "1.0.0",
+  "description": "A mern + redux  application to add vehicles and change their speed",
+  "main": "server.js",
+  "dependencies": {
+    "config": "^3.2.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.13"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oliver-norden/mern_vehicles.git"
+  },
+  "author": "Oliver Nordén",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oliver-norden/mern_vehicles/issues"
+  },
+  "homepage": "https://github.com/oliver-norden/mern_vehicles#readme"
+}

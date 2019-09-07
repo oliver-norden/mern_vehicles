@@ -34,4 +34,15 @@ router.delete('/:id', (req, res) => {
         .catch(err=>res.status(404).json({success: false}))
 });
 
+// @route   PUT api/vehicles
+// @desc    Delete a vehicle
+// @access  Public
+router.put('/', (req, res) => {
+    console.log(req.body.id);
+    console.log(req.body.speed);
+    Vehicle.findByIdAndUpdate(req.body.id, { speed: req.body.speed }, { new: true })
+        .then(vehicle=>res.json(vehicle))
+        .catch(err=>res.status(404).json({success: false}))
+});
+
 module.exports = router;

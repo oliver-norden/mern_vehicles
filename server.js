@@ -14,6 +14,7 @@ mongoose
     .connect(db, { useNewUrlParser: true, useCreateIndex: true })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err))
+mongoose.set('useFindAndModify', false);
 
 // Use routes
 app.use('/api/vehicles', require('./routes/api/vehicles'));

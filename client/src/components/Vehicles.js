@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListGroup, ListGroupItem, Button} from 'reactstrap';
 import { addVehicle, deleteVehicle, getVehicles } from '../actions/vehiclesActions';
-import uuid from 'uuid';
 import PropTypes from 'prop-types';
 
 class Vehicles extends Component {
@@ -23,8 +22,6 @@ class Vehicles extends Component {
         newVehicle.model=prompt("Model?");
         newVehicle.noOfWheels=prompt("No. of wheels?");
         newVehicle.maxSpeed=prompt("Max speed?");
-        newVehicle.minSpeed=0;
-        newVehicle._id=uuid();
 
         this.props.addVehicle(newVehicle);
     }

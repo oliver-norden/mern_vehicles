@@ -42,16 +42,52 @@ class Vehicles extends Component {
         ]
     }
 
+    deleteVehicle = id => {
+        this.setState({
+            vehicles: this.state.vehicles.filter(vehicle => vehicle._id !== id)
+        });
+    }
+
+    addVehicle = () => {
+        let newVehicle = {};
+        newVehicle.name=prompt("Name?");
+        newVehicle.type=prompt("Type?");
+        newVehicle.color=prompt("Color?");
+        newVehicle.make=prompt("Make?");
+        newVehicle.model=prompt("Model?");
+        newVehicle.noOfWheels=prompt("No. of wheels?");
+        newVehicle.maxSpeed=prompt("Max speed?");
+        newVehicle.minSpeed=0;
+        newVehicle._id=uuid();
+
+        this.setState({
+            vehicles: [
+                ...this.state.vehicles,
+                newVehicle
+            ]
+        });
+    }
+
     render() {
         return (
             <div>
-                <ListGroup>
+                <ListGroup className='mb-3'>
                     {this.state.vehicles.map(vehicle => 
                         <ListGroupItem key={vehicle._id}>
+                            <Button
+                                color='danger'
+                                size='sm'
+                                className='mr-2'
+                                onClick={this.deleteVehicle.bind(this, vehicle._id)}
+                            >&times;</Button>
                             {vehicle.name}
                         </ListGroupItem>
                     )}
                 </ListGroup>
+                <Button
+                    color='light'
+                    onClick={this.addVehicle}
+                >Add Vehicle</Button>
             </div>
         )
     }

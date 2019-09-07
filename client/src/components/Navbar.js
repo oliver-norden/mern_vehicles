@@ -19,19 +19,17 @@ class AppNavbar extends Component {
 
     render() {
         return (
-            <div>
-                <Navbar color="light" light expand="md">
-                    <NavbarBrand href="/">MERN Vehicles</NavbarBrand>
-                    <NavbarToggler onClick={this.toggle} />
-                    <Collapse isOpen={this.state.isOpen} navbar>
-                        <Nav className="ml-auto" navbar>
-                            <NavItem>
-                                <NavLink href="http://olivernorden.se">olivernorden.se</NavLink>
-                            </NavItem>
-                        </Nav>
-                    </Collapse>
-                </Navbar>
-            </div>
+            <Navbar color="light" light expand="md" className="mb-5">
+                <NavbarBrand href="/">MERN Vehicles</NavbarBrand>
+                <NavbarToggler onClick={this.toggle} />
+                <Collapse isOpen={this.state.isOpen} navbar>
+                    <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            <NavLink href="http://olivernorden.se" target="_blank">olivernorden.se</NavLink>
+                        </NavItem>
+                    </Nav>
+                </Collapse>
+            </Navbar>
         )
     }
 }

@@ -1,4 +1,4 @@
-import { ADD_VEHICLE, GET_VEHICLES, DELETE_VEHICLE, VEHICLES_LOADING } from '../actions/types';
+import { ADD_VEHICLE, GET_VEHICLES, DELETE_VEHICLE, VEHICLES_LOADING, UPDATE_VEHICLE } from '../actions/types';
 
 const initialState = {
     vehicles: [],
@@ -25,6 +25,11 @@ export default function (state=initialState, action) {
             return {
                 ...state,
                 vehicles: state.vehicles.filter(vehicle => vehicle._id !== action.payload)
+            };
+        case UPDATE_VEHICLE:
+            return {
+                ...state,
+                vehicles: state.vehicles.map(vehicle => (vehicle._id !== action.payload._id) ? vehicle : action.payload) // Replace old instance of updated vehicle with new
             };
         case VEHICLES_LOADING:
             return {

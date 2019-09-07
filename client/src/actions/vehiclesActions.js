@@ -1,14 +1,7 @@
-import { ADD_VEHICLE, DELETE_VEHICLE, VEHICLES_LOADING, GET_VEHICLES } from './types';
+import { ADD_VEHICLE, DELETE_VEHICLE, VEHICLES_LOADING, GET_VEHICLES, UPDATE_VEHICLE } from './types';
 import axios from 'axios';
 
 export const addVehicle = newVehicle => dispatch => {
-
-    // Configure headers
-    const config = {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    };
 
     // Attempt to add new vehicle
     axios
@@ -45,8 +38,31 @@ export const getVehicles = () => dispatch => {
             }));
 }
 
+export const changeVehicleSpeed = (id, diff) => dispatch => {
+
+    const body = {
+        id,
+        diff
+    };
+
+    // Set new speed of vehicle
+    axios.put('/api/vehicles', body, config)
+        .then(res=>
+            dispatch({
+                type: UPDATE_VEHICLE,
+                payload: res.data
+            }));
+}
+
 export const vehiclesLoading = () => {
     return {
         type: VEHICLES_LOADING
     }
 }
+
+// Configure headers
+const config = {
+    headers: {
+        "Content-Type": "application/json"
+    }
+};

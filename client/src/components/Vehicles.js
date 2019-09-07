@@ -34,6 +34,7 @@ class Vehicles extends Component {
                     {vehicles.map(vehicle => 
                         <ListGroupItem key={vehicle._id}>
                             <Button
+                                outline
                                 color='danger'
                                 size='sm'
                                 className='mr-2'

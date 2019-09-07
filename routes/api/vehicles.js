@@ -35,12 +35,10 @@ router.delete('/:id', (req, res) => {
 });
 
 // @route   PUT api/vehicles
-// @desc    Delete a vehicle
+// @desc    Update a vehicle's speed
 // @access  Public
 router.put('/', (req, res) => {
-    console.log(req.body.id);
-    console.log(req.body.speed);
-    Vehicle.findByIdAndUpdate(req.body.id, { speed: req.body.speed }, { new: true })
+    Vehicle.findByIdAndUpdate(req.body.id, { $inc: {speed: req.body.diff } }, { new: true })
         .then(vehicle=>res.json(vehicle))
         .catch(err=>res.status(404).json({success: false}))
 });

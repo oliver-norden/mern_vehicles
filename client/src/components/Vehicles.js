@@ -15,21 +15,6 @@ class Vehicles extends Component {
         this.props.getVehicles();
     }
 
-    addVehicle = () => {
-
-        // Prepare new vehicle object
-        let newVehicle = {};
-        newVehicle.name=prompt("Name?");
-        newVehicle.type=prompt("Type?");
-        newVehicle.color=prompt("Color?");
-        newVehicle.make=prompt("Make?");
-        newVehicle.model=prompt("Model?");
-        newVehicle.noOfWheels=prompt("No. of wheels?");
-        newVehicle.maxSpeed=prompt("Max speed?");
-
-        this.props.addVehicle(newVehicle);
-    }
-
     decreaseSpeed = (id) => {
         this.props.changeVehicleSpeed(id, -this.state.speedChangeDiff)
     }
@@ -73,10 +58,6 @@ class Vehicles extends Component {
                         </ListGroupItem>
                     )}
                 </ListGroup>
-                <Button
-                    color='light'
-                    onClick={this.addVehicle}
-                >Add Vehicle</Button>
             </div>
         )
     }
@@ -84,7 +65,6 @@ class Vehicles extends Component {
 
 Vehicles.propTypes = {
     vehicle: PropTypes.object.isRequired,
-    addVehicle: PropTypes.func.isRequired,
     deleteVehicle: PropTypes.func.isRequired,
     getVehicles: PropTypes.func.isRequired,
     changeVehicleSpeed: PropTypes.func.isRequired
@@ -94,4 +74,4 @@ const mapStateToProps = state => ({
     vehicle: state.vehicles
 });
 
-export default connect(mapStateToProps, { addVehicle, deleteVehicle, getVehicles, changeVehicleSpeed })(Vehicles);
+export default connect(mapStateToProps, { deleteVehicle, getVehicles, changeVehicleSpeed })(Vehicles);

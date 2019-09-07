@@ -7,6 +7,7 @@ import store from './store';
 
 import AppNavbar from './components/Navbar';
 import Vehicles from './components/Vehicles';
+import VehicleModal from './components/VehicleModal';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -17,6 +18,7 @@ function App() {
         <AppNavbar />
           <Container>
             <Vehicles />
+            <VehicleModal />
           </Container>
       </Provider>
     </div>

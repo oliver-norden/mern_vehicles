@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const config = require('config'); // JWT secret
+const returnUser = require('./returnUser');
 
 // User model
 const User = require('../../models/Users');
@@ -34,26 +33,7 @@ router.post('/', (req, res) => {
                     newUser.password = hashedPassword;
                     newUser.save()
 
-                    // Send user data as response with new jwt (no password included)
-                    .then(user => {
-                        jwt.sign(
-                            { id: user.id },
-                            config.get('jwtSecret'),
-                            { expiresIn: 1800 }, // Token expiration
-                            (err, token) => {
-                                if(err) throw err;
-                                const { id, name, userName } = user;
-                                res.json({
-                                    token,
-                                    user: {
-                                        id,
-                                        name,
-                                        userName
-                                    }
-                                });
-                            }
-                        );
-                    });
+                    returnUser(newUser, res);
                 });
             });
         });

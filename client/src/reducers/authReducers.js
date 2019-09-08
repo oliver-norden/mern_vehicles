@@ -1,4 +1,11 @@
-import { REG_FAIL, REG_SUCCESS, LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT_SUCCESS, USER_LOADING, USER_LOADED, USER_FAIL } from '../actions/types';
+import { REG_FAIL, 
+    REG_SUCCESS, 
+    LOGIN_FAIL, 
+    LOGIN_SUCCESS, 
+    LOGOUT_SUCCESS, 
+    USER_LOADING, 
+    USER_LOADED, 
+    USER_FAIL } from '../actions/types';
 
 const initialState = {
     isAuthenticated: false,

@@ -66,10 +66,3 @@ export const vehiclesLoading = () => {
         type: VEHICLES_LOADING
     }
 }
-
-// Configure headers
-const config = {
-    headers: {
-        "Content-Type": "application/json"
-    }
-};

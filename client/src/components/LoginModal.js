@@ -26,7 +26,7 @@ class RegisterModal extends Component {
         });
     }
     
-    onChange = (e) => {
+    onChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         })

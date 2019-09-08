@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListGroup, ListGroupItem, Button, Badge } from 'reactstrap';
-import { addVehicle, deleteVehicle, getVehicles, changeVehicleSpeed } from '../actions/vehiclesActions';
+import { deleteVehicle, getVehicles, changeVehicleSpeed } from '../actions/vehiclesActions';
 import PropTypes from 'prop-types';
 
 class Vehicles extends Component {
 
     state = {
         speedChangeDiff: 5
-    }
+    };
 
     // Get vehicles when component has mounted
     componentDidMount() {
         this.props.getVehicles();
     }
 
-    decreaseSpeed = (id) => {
-        this.props.changeVehicleSpeed(id, -this.state.speedChangeDiff)
+    decreaseSpeed = id => {
+        this.props.changeVehicleSpeed(id, -this.state.speedChangeDiff);
     }
 
-    increaseSpeed = (id) => {
-        this.props.changeVehicleSpeed(id, this.state.speedChangeDiff)
+    increaseSpeed = id => {
+        this.props.changeVehicleSpeed(id, this.state.speedChangeDiff);
     }
 
     render() {

@@ -1,4 +1,11 @@
-import { REG_FAIL, REG_SUCCESS, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, USER_LOADED, USER_FAIL, USER_LOADING } from './types';
+import { REG_FAIL, 
+    REG_SUCCESS, 
+    LOGIN_SUCCESS, 
+    LOGIN_FAIL, 
+    LOGOUT_SUCCESS, 
+    USER_LOADED, 
+    USER_FAIL, 
+    USER_LOADING } from './types';
 import axios from 'axios';
 
 export const loadUser = () => (dispatch, getState) => {
@@ -11,8 +18,6 @@ export const loadUser = () => (dispatch, getState) => {
     // Configure headers
     const config = headerConfig(getState);
 
-    console.log(config);
-
     axios
         .get('/api/auth/user', config)
             .then(res => dispatch({
@@ -24,14 +29,10 @@ export const loadUser = () => (dispatch, getState) => {
             }));
 }
 
-export const register = ({ name, userName, password }) => dispatch => {
+export const register = ({ name, userName, password }) => (dispatch, getState) => {
 
     // Configure headers
-    const config = {
-        headers: {
-            'Content-type': 'application/json'
-        }
-    };
+    const config = headerConfig(getState);
 
     // Request body
     const body = JSON.stringify({ name, userName, password});
@@ -47,14 +48,10 @@ export const register = ({ name, userName, password }) => dispatch => {
             }));
 }
 
-export const login = ({ userName, password }) => dispatch => {
+export const login = ({ userName, password }) => (dispatch, getState) => {
 
     // Configure headers
-    const config = {
-        headers: {
-            'Content-type': 'application/json'
-        }
-    };
+    const config = headerConfig(getState);
 
     // Request body
     const body = JSON.stringify({ userName, password});
@@ -90,5 +87,4 @@ export default function headerConfig (getState) {
     if (token) config.headers['x-auth-token'] = token;
 
     return config;
-    
 }

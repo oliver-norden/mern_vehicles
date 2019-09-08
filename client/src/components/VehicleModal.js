@@ -26,7 +26,7 @@ export class VehicleModal extends Component {
         }
     };
 
-    addVehicle = (e) => {
+    addVehicle = e => {
         e.preventDefault();
 
         // Add vehicle with action
@@ -36,7 +36,7 @@ export class VehicleModal extends Component {
         this.toggleModal();
     }
 
-    onChange = (e) => {
+    onChange = e => {
 
         // Add form input to corresponding Property in state
         this.setState({ vehicle: {

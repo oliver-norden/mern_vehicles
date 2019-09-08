@@ -3,3 +3,5 @@ export const ADD_VEHICLE = 'ADD_VEHICLE';
 export const DELETE_VEHICLE = 'DELETE_VEHICLE';
 export const VEHICLES_LOADING = 'VEHICLES_LOADING';
 export const UPDATE_VEHICLE = 'UPDATE_VEHICLE';
+export const REG_SUCCESS = 'REG_SUCCESS';
+export const REG_FAIL = 'REG_FAIL';

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Modal, 
     ModalHeader, 
     ModalBody, 
@@ -6,9 +7,12 @@ import { Modal,
     FormGroup, 
     Label, 
     Input,
-    NavLink } from 'reactstrap';
+    NavLink,
+    Button } from 'reactstrap';
+import { register } from '../actions/authActions';
+import PropTypes from 'prop-types';
 
-export class RegisterModal extends Component {
+class RegisterModal extends Component {
 
     state = {
         modalOpen: false,
@@ -29,6 +33,20 @@ export class RegisterModal extends Component {
         })
     }
 
+    onSubmit = e => {
+        e.preventDefault();
+
+        const { name, userName, password } = this.state;
+
+        const newUser = { 
+            name,
+            userName,
+            password
+        };
+
+        this.props.register(newUser);
+    }
+
     render() {
         return (
             <>
@@ -38,7 +56,7 @@ export class RegisterModal extends Component {
                         Register
                     </ModalHeader>
                     <ModalBody>
-                        <Form>
+                        <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <Label for='name'>Name</Label>
                                 <Input type='text' name='name' id='name' placeholder='Name' onChange={this.onChange} />
@@ -51,6 +69,7 @@ export class RegisterModal extends Component {
                                 <Label for='password'>Password</Label>
                                 <Input type='password' name='password' id='password' placeholder='Password' onChange={this.onChange} />
                             </FormGroup>
+                            <Button type='submit' color='light' block>Register User</Button>
                         </Form>
                     </ModalBody>
                 </Modal>
@@ -59,4 +78,8 @@ export class RegisterModal extends Component {
     }
 }
 
-export default RegisterModal
+RegisterModal.propType = {
+    register: PropTypes.func.isRequired
+};
+
+export default connect(null, { register })(RegisterModal);

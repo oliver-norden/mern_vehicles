@@ -7,7 +7,7 @@ import {
     Nav,
     NavItem,
     NavLink } from 'reactstrap';
-import { RegisterModal } from './RegisterModal';
+import RegisterModal from './RegisterModal';
 
 class AppNavbar extends Component {
     state = {

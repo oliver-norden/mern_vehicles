@@ -18,6 +18,8 @@ mongoose.set('useFindAndModify', false);
 
 // Use routes
 app.use('/api/vehicles', require('./routes/api/vehicles'));
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
 
 const port = process.env.PORT || 5000;
 

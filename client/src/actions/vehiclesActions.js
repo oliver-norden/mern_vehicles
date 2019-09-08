@@ -1,7 +1,10 @@
 import { ADD_VEHICLE, DELETE_VEHICLE, VEHICLES_LOADING, GET_VEHICLES, UPDATE_VEHICLE } from './types';
 import axios from 'axios';
+import headerConfig from './authActions';
 
-export const addVehicle = newVehicle => dispatch => {
+export const addVehicle = newVehicle => (dispatch, getState) => {
+
+    const config = headerConfig(getState);
 
     // Attempt to add new vehicle
     axios
@@ -13,10 +16,12 @@ export const addVehicle = newVehicle => dispatch => {
         .catch(err => console.log(err));
 }
 
-export const deleteVehicle = id => dispatch => {
+export const deleteVehicle = id => (dispatch, getState) => {
+
+    const config = headerConfig(getState);
 
     axios
-        .delete(`/api/vehicles/${id}`)
+        .delete(`/api/vehicles/${id}`, config)
         .then(res => dispatch({
             type: DELETE_VEHICLE,
             payload: id
@@ -38,12 +43,14 @@ export const getVehicles = () => dispatch => {
             }));
 }
 
-export const changeVehicleSpeed = (id, diff) => dispatch => {
+export const changeVehicleSpeed = (id, diff) => (dispatch, getState) => {
 
     const body = {
         id,
         diff
     };
+
+    const config = headerConfig(getState);
 
     // Set new speed of vehicle
     axios.put('/api/vehicles', body, config)

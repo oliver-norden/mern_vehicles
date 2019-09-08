@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import './App.css';
 import { Container } from 'reactstrap';
@@ -10,20 +10,27 @@ import store from './store';
 import AppNavbar from './components/Navbar';
 import Vehicles from './components/Vehicles';
 import VehicleModal from './components/VehicleModal';
+import { loadUser } from './actions/authActions';
 
 
-function App() {
-  return (
-    <div className="App">
-      <Provider store={store}>
-        <AppNavbar />
-          <Container>
-            <Vehicles />
-            <VehicleModal />
-          </Container>
-      </Provider>
-    </div>
-  );
+class App extends Component {
+  componentDidMount() {
+      store.dispatch(loadUser());
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Provider store={store}>
+          <AppNavbar />
+            <Container>
+              <Vehicles />
+              <VehicleModal />
+            </Container>
+        </Provider>
+      </div>
+    );
+  }
 }
 
 export default App;

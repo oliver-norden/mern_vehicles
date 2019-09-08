@@ -8,7 +8,8 @@ import { Modal,
     Label, 
     Input,
     NavLink,
-    Button } from 'reactstrap';
+    Button,
+    Alert } from 'reactstrap';
 import { login } from '../actions/authActions';
 import PropTypes from 'prop-types';
 
@@ -17,7 +18,21 @@ class RegisterModal extends Component {
     state = {
         modalOpen: false,
         userName: '',
-        password: ''
+        password: '',
+        msg: ''
+    }
+
+    componentDidUpdate(prevProps) {
+        const { error } = this.props
+        if (error !== prevProps.error) {
+            //Check for login errors
+            if (error.id === 'LOGIN_ERROR'){
+                this.setState({ msg: error.msg });
+            }
+            else {
+                this.setState({ msg: null});
+            }
+        }
     }
 
     toggle = () => {
@@ -54,6 +69,7 @@ class RegisterModal extends Component {
                         Sign in
                     </ModalHeader>
                     <ModalBody>
+                        {this.state.msg ? <Alert color='danger'>{this.state.msg}</Alert> : null}
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
                                 <Label for='userName'>Username</Label>
@@ -73,7 +89,12 @@ class RegisterModal extends Component {
 }
 
 RegisterModal.propType = {
-    register: PropTypes.func.isRequired
+    register: PropTypes.func.isRequired,
+    error: PropTypes.object.isRequired
 };
 
-export default connect(null, { login })(RegisterModal);
+const mapStateToProps = state => ({
+    error: state.error
+});
+
+export default connect(mapStateToProps, { login })(RegisterModal);

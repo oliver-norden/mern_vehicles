@@ -45,9 +45,10 @@ export const register = ({ name, userName, password }) => (dispatch, getState) =
                 type: REG_SUCCESS,
                 payload: res.data
             }))
-            .catch(err => dispatch({
-                type: REG_FAIL
-            }));
+            .catch(err => {
+                dispatch({ type: REG_FAIL });
+                dispatch(createError(err.response.status, err.response.data.msg, 'REG_ERROR'))
+            });
 }
 
 export const login = ({ userName, password }) => (dispatch, getState) => {
@@ -64,9 +65,10 @@ export const login = ({ userName, password }) => (dispatch, getState) => {
                 type: LOGIN_SUCCESS,
                 payload: res.data
             }))
-            .catch(err => dispatch({
-                type: LOGIN_FAIL
-            }));
+            .catch(err => {
+                dispatch({ type: LOGIN_FAIL });
+                dispatch(createError(err.response.status, err.response.data.msg, 'LOGIN_ERROR'));
+            });
 }
 
 export const logout = () => {

@@ -76,7 +76,7 @@ export const logout = () => {
     }
 }
 
-const headerConfig = (getState) => {
+export default function headerConfig (getState) {
 
     // Configure headers
     const config = {

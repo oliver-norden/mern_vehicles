@@ -1,4 +1,4 @@
-import { REG_FAIL, REG_SUCCESS, LOGIN_SUCCESS, LOGIN_FAIL } from './types';
+import { REG_FAIL, REG_SUCCESS, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS } from './types';
 import axios from 'axios';
 
 export const register = ({ name, userName, password }) => dispatch => {
@@ -45,4 +45,10 @@ export const login = ({ userName, password }) => dispatch => {
             .catch(err => dispatch({
                 type: LOGIN_FAIL
             }));
+}
+
+export const logout = () => {
+    return {
+        type: LOGOUT_SUCCESS
+    }
 }

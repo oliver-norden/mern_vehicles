@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { logout } from '../actions/authActions';
 import {
     Collapse,
     Navbar,
@@ -33,6 +35,9 @@ class AppNavbar extends Component {
                             <LoginModal />
                         </NavItem>
                         <NavItem>
+                            <NavLink href='#' onClick={this.props.logout}>Log out</NavLink>
+                        </NavItem>
+                        <NavItem>
                             <NavLink href="http://olivernorden.se" target="_blank">olivernorden.se</NavLink>
                         </NavItem>
                     </Nav>
@@ -42,4 +47,4 @@ class AppNavbar extends Component {
     }
 }
 
-export default AppNavbar;
+export default connect(null, { logout })(AppNavbar);

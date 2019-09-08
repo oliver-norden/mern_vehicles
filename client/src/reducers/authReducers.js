@@ -1,4 +1,4 @@
-import { REG_FAIL, REG_SUCCESS, LOGIN_FAIL, LOGIN_SUCCESS } from '../actions/types';
+import { REG_FAIL, REG_SUCCESS, LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT_SUCCESS } from '../actions/types';
 
 const initialState = {
     isAuthenticated: false,
@@ -20,6 +20,8 @@ export default function(state = initialState, action) {
             }
         case REG_FAIL:
         case LOGIN_FAIL:
+        case LOGOUT_SUCCESS:
+            localStorage.removeItem('token');
             return {
                 ...state,
                 isAuthenticated: false,

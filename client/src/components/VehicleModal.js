@@ -66,11 +66,16 @@ export class VehicleModal extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label for='type'>Type</Label>
-                                <Input type='text' name='type' id='type' placeholder='Type' onChange={this.onChange} />
+                                <Input type='select' name='type' id='type' onChange={this.onChange} >
+                                    <option value=''>Select type</option>
+                                    <option value='car'>Car</option>
+                                    <option value='motorcycle'>Motorcycle</option>
+                                    <option value='truck'>Truck</option>
+                                </Input>
                             </FormGroup>
                             <FormGroup>
                                 <Label for='color'>Color</Label>
-                                <Input type='select' name='color' id='color' placeholder='Color' onChange={this.onChange} >
+                                <Input type='select' name='color' id='color' onChange={this.onChange} >
                                     <option value=''>Select color</option>
                                     <option value='red'>Red</option>
                                     <option value='green'>Green</option>

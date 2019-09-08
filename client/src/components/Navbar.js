@@ -7,6 +7,7 @@ import {
     Nav,
     NavItem,
     NavLink } from 'reactstrap';
+import { RegisterModal } from './RegisterModal';
 
 class AppNavbar extends Component {
     state = {
@@ -24,6 +25,9 @@ class AppNavbar extends Component {
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            <RegisterModal />
+                        </NavItem>
                         <NavItem>
                             <NavLink href="http://olivernorden.se" target="_blank">olivernorden.se</NavLink>
                         </NavItem>

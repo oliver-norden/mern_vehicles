@@ -11,6 +11,7 @@ import { Modal,
     Button,
     Alert } from 'reactstrap';
 import { login } from '../actions/authActions';
+import { clearErrors } from '../actions/errorActions';
 import PropTypes from 'prop-types';
 
 class RegisterModal extends Component {
@@ -39,6 +40,8 @@ class RegisterModal extends Component {
         this.setState({
             modalOpen: !this.state.modalOpen
         });
+
+        this.props.clearErrors();
     }
     
     onChange = e => {
@@ -89,7 +92,8 @@ class RegisterModal extends Component {
 }
 
 RegisterModal.propType = {
-    register: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
     error: PropTypes.object.isRequired
 };
 
@@ -97,4 +101,4 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { login })(RegisterModal);
+export default connect(mapStateToProps, { login, clearErrors })(RegisterModal);

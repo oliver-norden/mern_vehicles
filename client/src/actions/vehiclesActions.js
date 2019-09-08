@@ -1,6 +1,7 @@
 import { ADD_VEHICLE, DELETE_VEHICLE, VEHICLES_LOADING, GET_VEHICLES, UPDATE_VEHICLE } from './types';
 import axios from 'axios';
 import headerConfig from './authActions';
+import { createError } from './errorActions';
 
 export const addVehicle = newVehicle => (dispatch, getState) => {
 
@@ -9,11 +10,13 @@ export const addVehicle = newVehicle => (dispatch, getState) => {
     // Attempt to add new vehicle
     axios
         .post('/api/vehicles', newVehicle, config)
-        .then(res => dispatch({
-                type: ADD_VEHICLE,
-                payload: res.data
-            }))
-        .catch(err => console.log(err));
+            .then(res => dispatch({
+                    type: ADD_VEHICLE,
+                    payload: res.data
+                }))
+            .catch(err => {
+                dispatch(createError(err.response.status, err.response.data.msg, 'APP_ERROR'))
+            });
 }
 
 export const deleteVehicle = id => (dispatch, getState) => {
@@ -22,11 +25,13 @@ export const deleteVehicle = id => (dispatch, getState) => {
 
     axios
         .delete(`/api/vehicles/${id}`, config)
-        .then(res => dispatch({
-            type: DELETE_VEHICLE,
-            payload: id
-        }))
-        .catch(err => console.log(err));
+            .then(res => dispatch({
+                type: DELETE_VEHICLE,
+                payload: id
+            }))
+            .catch(err => {
+                dispatch(createError(err.response.status, err.response.data.msg, 'APP_ERROR'))
+            });
 }
 
 export const getVehicles = () => dispatch => {
@@ -58,7 +63,10 @@ export const changeVehicleSpeed = (id, diff) => (dispatch, getState) => {
             dispatch({
                 type: UPDATE_VEHICLE,
                 payload: res.data
-            }));
+            }))
+        .catch(err => {
+            dispatch(createError(err.response.status, err.response.data.msg, 'APP_ERROR'))
+        });
 }
 
 export const vehiclesLoading = () => {

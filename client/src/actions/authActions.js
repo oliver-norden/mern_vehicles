@@ -7,6 +7,7 @@ import { REG_FAIL,
     USER_FAIL, 
     USER_LOADING } from './types';
 import axios from 'axios';
+import { createError } from './errorActions';
 
 export const loadUser = () => (dispatch, getState) => {
 
@@ -24,9 +25,10 @@ export const loadUser = () => (dispatch, getState) => {
                 type: USER_LOADED,
                 payload: res.data
             }))
-            .catch(err => dispatch({
-                type: USER_FAIL
-            }));
+            .catch(err => {
+                dispatch({type: USER_FAIL});
+                dispatch(createError(err.response.status, err.response.data.msg, 'APP_ERROR'));
+            });
 }
 
 export const register = ({ name, userName, password }) => (dispatch, getState) => {

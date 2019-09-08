@@ -11,6 +11,7 @@ import AppNavbar from './components/Navbar';
 import Vehicles from './components/Vehicles';
 import VehicleModal from './components/VehicleModal';
 import { loadUser } from './actions/authActions';
+import AppError from './components/AppError';
 
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
         <Provider store={store}>
           <AppNavbar />
             <Container>
+              <AppError />
               <Vehicles />
               <VehicleModal />
             </Container>

@@ -34,6 +34,13 @@ class RegisterModal extends Component {
                 this.setState({ msg: null});
             }
         }
+        
+        //Close modal if authenticated
+        if(this.state.modalOpen){
+            if (this.props.isAuthenticated){
+                this.toggle();
+            }
+        }
     }
 
     toggle = () => {
@@ -94,11 +101,13 @@ class RegisterModal extends Component {
 RegisterModal.propType = {
     login: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
     error: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-    error: state.error
+    error: state.error,
+    isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, { login, clearErrors })(RegisterModal);

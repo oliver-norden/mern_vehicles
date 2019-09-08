@@ -98,6 +98,13 @@ export class VehicleModal extends Component {
                                 <Label for='maxSpeed'>Top speed</Label>
                                 <Input type='number' name='maxSpeed' id='maxSpeed' placeholder='Top speed' onChange={this.onChange} />
                             </FormGroup>
+                            {this.state.vehicle.type === 'truck' ? // Add loading capacity if vehicle type is truck
+                                <FormGroup>
+                                    <Label for='maxSpeed'>Loading capacity</Label>
+                                    <Input type='number' name='loadingCapacity' id='loadingCapacity' placeholder='Loading capacity' onChange={this.onChange} />
+                                </FormGroup>
+                            : null}
+                            
                             <Button color='light' block >Add Vehicle</Button>
                         </Form>
                     </ModalBody>

@@ -38,9 +38,21 @@ router.delete('/:id', (req, res) => {
 // @desc    Update a vehicle's speed
 // @access  Public
 router.put('/', (req, res) => {
-    Vehicle.findByIdAndUpdate(req.body.id, { $inc: {speed: req.body.diff } }, { new: true })
-        .then(vehicle=>res.json(vehicle))
-        .catch(err=>res.status(404).json({success: false}))
+    const increment = req.body.diff;
+    Vehicle.findById(req.body.id)
+        .then(vehicle => {
+            const { speed, maxSpeed, minSpeed } = vehicle;
+            let newSpeed = speed + increment;
+
+            //Set new speed to max/ min speed if it is bigger or smaller
+            if (newSpeed > maxSpeed) newSpeed = maxSpeed;
+            else if (newSpeed < minSpeed) newSpeed = minSpeed;
+            
+            vehicle.speed = newSpeed;
+            vehicle.save()
+                .then(updatedVehicle => res.json(updatedVehicle));
+        })
+        .catch(err=>res.status(404).json({success: false}));
 });
 
 module.exports = router;

@@ -11,12 +11,14 @@ import AppNavbar from './components/Navbar';
 import Vehicles from './components/Vehicles';
 import VehicleModal from './components/VehicleModal';
 import { loadUser } from './actions/authActions';
+import { windowResize } from './actions/appActions';
 import AppError from './components/AppError';
 
 
 class App extends Component {
   componentDidMount() {
       store.dispatch(loadUser());
+      window.addEventListener("resize", () => store.dispatch(windowResize(window.innerWidth)));
   }
 
   render() {

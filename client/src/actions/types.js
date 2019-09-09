@@ -13,3 +13,4 @@ export const USER_LOADED = 'USER_LOADED';
 export const USER_FAIL = 'USER_FAIL';
 export const CREATE_ERROR = 'CREATE_ERROR';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const WINDOW_RESIZE = 'WINDOW_RESIZE';

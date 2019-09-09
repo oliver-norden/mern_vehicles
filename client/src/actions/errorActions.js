@@ -1,6 +1,7 @@
-import { CREATE_ERROR, CLEAR_ERRORS } from "./types";
+import { CREATE_ERROR, CLEAR_ERRORS, USER_FAIL } from "./types";
 
-export const createError = (status, msg, id = null) => {
+export const createError = (status, msg, id = null) => dispatch => {
+    if (status === 401 ) dispatch(USER_FAIL);
     return {
         type: CREATE_ERROR,
         payload: {

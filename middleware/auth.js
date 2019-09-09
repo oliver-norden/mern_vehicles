@@ -1,4 +1,4 @@
-const config = require('config');
+const config = (process.env.NODE_ENV === 'production') ? require('../server-config') : require('config');
 const jwt = require('jsonwebtoken');
 
 function auth(req, res, next) {

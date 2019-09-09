@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const config = require('config'); // JWT secret
+const config = (process.env.NODE_ENV === 'production') ? require('../../server-config') : require('config'); //JWT secret
 
 module.exports = returnUser = (user, res) =>{
     // Send user data as response with new jwt (no password included)

@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const config = require('config');
+const config = (process.env.NODE_ENV === 'production') ? require('./server-config') : require('config');
 const path = require('path');
 
 const app = express();

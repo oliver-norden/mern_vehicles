@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListGroup, ListGroupItem, Button, Badge, Row, Col } from 'reactstrap';
+import { ListGroup, ListGroupItem, Button, Badge } from 'reactstrap';
 import { deleteVehicle, getVehicles, changeVehicleSpeed } from '../actions/vehiclesActions';
 import PropTypes from 'prop-types';
 

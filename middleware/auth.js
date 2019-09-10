@@ -1,4 +1,4 @@
-const config = (process.env.NODE_ENV === 'production') ? require('../server-config') : require('config');
+const config = (process.env.NODE_ENV === 'production') ? null : require('config');
 const jwt = require('jsonwebtoken');
 
 function auth(req, res, next) {
@@ -8,9 +8,11 @@ function auth(req, res, next) {
     // Check for token
     if (!token) return res.status(401).json({ msg: 'No token' });
 
+    const jwtSecret = process.env.jwtSecret || config.get('jwtSecret');
+
     try {
         // Verify token
-        const decodedToken = jwt.verify(token, config.get('jwtSecret'));
+        const decodedToken = jwt.verify(token, jwtSecret);
 
         // Add user from token payload
         req.user = decodedToken;

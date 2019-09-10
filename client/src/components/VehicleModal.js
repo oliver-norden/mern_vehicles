@@ -19,9 +19,6 @@ export class VehicleModal extends Component {
             name: '',
             type: '',
             color: '',
-            make: '',
-            model: '',
-            noOfWheels: 0,
             maxSpeed: 0
         }
     };
@@ -75,24 +72,8 @@ export class VehicleModal extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label for='color'>Color</Label>
-                                <Input type='select' name='color' id='color' onChange={this.onChange} >
-                                    <option value=''>Select color</option>
-                                    <option value='red'>Red</option>
-                                    <option value='green'>Green</option>
-                                    <option value='blue'>Blue</option>
+                                <Input type='color' name='color' id='color' onChange={this.onChange} >
                                 </Input>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for='make'>Make</Label>
-                                <Input type='text' name='make' id='make' placeholder='Make' onChange={this.onChange} />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for='model'>Model</Label>
-                                <Input type='text' name='model' id='model' placeholder='Model' onChange={this.onChange} />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for='noOfWheels'>No. of wheels</Label>
-                                <Input type='number' name='noOfWheels' id='noOfWheels' placeholder='No. of wheels' onChange={this.onChange} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for='maxSpeed'>Top speed</Label>

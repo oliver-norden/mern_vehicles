@@ -19,18 +19,6 @@ const VehicleSchema = new Schema({
         type: String,
         required: true
     },
-    make: {
-        type: String,
-        required: true
-    },
-    model: {
-        type: String,
-        required: true
-    },
-    noOfWheels: {
-        type: Number,
-        required: true
-    },
     minSpeed: {
         type: Number,
         default: 0

@@ -7,8 +7,10 @@ import { Button,
     Form, 
     FormGroup, 
     Label, 
-    Input } from 'reactstrap';
+    Input,
+    Alert } from 'reactstrap';
 import { addVehicle } from '../actions/vehiclesActions';
+import { clearErrors } from '../actions/errorActions';
 import PropTypes from 'prop-types';
 
 export class VehicleModal extends Component {
@@ -20,17 +22,32 @@ export class VehicleModal extends Component {
             type: '',
             color: '',
             maxSpeed: 0
-        }
+        },
+        errMsg: null
     };
+
+    componentDidUpdate(prevProps) {
+        const { vehicles, error } = this.props;
+        if (vehicles.length > prevProps.vehicles.length){
+            this.setState({ modalOpen: false }); // Close modal when new vehicle is added
+        }
+
+        // Error msg
+        if (error !== prevProps.error){
+            if (error.id === 'VEHICLE_ERROR'){
+                this.setState({ msg: error.msg })
+            }
+            else {
+                this.setState({ msg: null })
+            }
+        }
+    }
 
     addVehicle = e => {
         e.preventDefault();
 
         // Add vehicle with action
         this.props.addVehicle(this.state.vehicle);
-
-        // Close modal
-        this.toggleModal();
     }
 
     onChange = e => {
@@ -44,6 +61,7 @@ export class VehicleModal extends Component {
 
     toggleModal = () => {
         this.setState({modalOpen: !this.state.modalOpen});
+        this.props.clearErrors();
     }
 
     render() {
@@ -56,6 +74,7 @@ export class VehicleModal extends Component {
                 <Modal isOpen={ this.state.modalOpen } toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Add Vehicle</ModalHeader>
                     <ModalBody>
+                        {this.state.msg ? <Alert color='danger'>{this.state.msg}</Alert> : null}
                         <Form onSubmit={this.addVehicle}>
                             <FormGroup>
                                 <Label for='name'>Name</Label>
@@ -96,7 +115,15 @@ export class VehicleModal extends Component {
 }
 
 VehicleModal.propTypes = {
-    addVehicle: PropTypes.func.isRequired
+    addVehicle: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
+    vehicles: PropTypes.array.isRequired,
+    error: PropTypes.object.isRequired
 }
 
-export default connect(null, { addVehicle })(VehicleModal);
+const mapStateToProps = state => ({
+    vehicles: state.vehicles.vehicles,
+    error: state.error
+});
+
+export default connect(mapStateToProps, { addVehicle, clearErrors })(VehicleModal);

@@ -18,6 +18,11 @@ router.get('/', (req, res) => {
 // @desc    Add a vehicle
 // @access  Private
 router.post('/', auth, (req, res) => {
+    // Field validation
+    if (!req.body.name || !req.body.type || !req.body.color || !req.body.maxSpeed){
+        res.status(400).json({ "msg": "Please enter all fields" });
+        return;
+    }
     const newVehicle = new Vehicle({
         ...req.body
     });

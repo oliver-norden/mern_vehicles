@@ -15,7 +15,7 @@ export const addVehicle = newVehicle => (dispatch, getState) => {
                     payload: res.data
                 }))
             .catch(err => {
-                dispatch(createError(err.response.status, err.response.data.msg, 'APP_ERROR'))
+                dispatch(createError(err.response.status, err.response.data.msg, 'VEHICLE_ERROR'))
             });
 }
 

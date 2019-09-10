@@ -1,7 +1,8 @@
-import { CREATE_ERROR, CLEAR_ERRORS, USER_FAIL } from "./types";
+import { CREATE_ERROR, CLEAR_ERRORS } from "./types";
+import { loadUser } from './authActions';
 
-export const createError = (status, msg, id = null) => dispatch => {
-    if (status === 401 ) dispatch(USER_FAIL);
+export const createError = (status, msg, id = null) => {
+    loadUser();
     return {
         type: CREATE_ERROR,
         payload: {

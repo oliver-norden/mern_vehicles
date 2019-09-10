@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const config = require('config');
+const config = (process.env.NODE_ENV === 'production') ? null : require('config'); // JWT secret
 const path = require('path');
 
 const app = express();
@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 // Connect to MongoDB
-const db = config.get('mongoURI'); //DB config
+const db = process.env.mongoURI || config.get('mongoURI');
 
 mongoose
     .connect(db, { useNewUrlParser: true, useCreateIndex: true })

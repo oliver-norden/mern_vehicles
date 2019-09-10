@@ -1,0 +1,53 @@
+
+/*   WHEELS   */
+
+.mc-wheel1,
+.mc-wheel2 {
+    width: 43px;
+    height: 43px;
+    background-color: #ddd;
+    border-radius: 50%;
+    border: 2.5px solid black;
+    position: absolute;
+    bottom: 0;
+    animation: wheelsRotation 0s infinite linear;
+}
+.mc-wheel1 {
+    left: 1%;
+    bottom: 3%
+}
+.mc-wheel2 {
+    left: 67%;
+    bottom: 3%
+}
+.mc-wheel-dot1,
+.mc-wheel-dot2,
+.mc-wheel-dot3{
+    width: 2px;
+    height: 20px;
+    background-color: black;
+    position: absolute;
+}
+.mc-wheel-dot1 {
+    transform: rotate(120deg);
+    top: 33%;
+    right: 25%
+}
+.mc-wheel-dot2 {
+    left: 50%;
+}
+.mc-wheel-dot3 {
+    transform: rotate(240deg);
+    top: 35%;
+    right: 70%
+}
+.vehicle {
+    width: 150px;
+    position: relative;
+}
+
+@keyframes wheelsRotation {
+    100% {
+        transform: rotate(-360deg);
+    }
+}

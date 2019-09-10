@@ -10,6 +10,9 @@ import store from './store';
 import AppNavbar from './components/Navbar';
 import Vehicles from './components/Vehicles';
 import VehicleModal from './components/VehicleModal';
+import Car from './components/vehicles/Car';
+import Motorcycle from './components/vehicles/Motorcycle';
+import Truck from './components/vehicles/Truck';
 import { loadUser } from './actions/authActions';
 import { windowResize } from './actions/appActions';
 import AppError from './components/AppError';
@@ -30,6 +33,9 @@ class App extends Component {
               <AppError />
               <Vehicles />
               <VehicleModal />
+              <Car />
+              <Motorcycle />
+              <Truck />
             </Container>
         </Provider>
       </div>

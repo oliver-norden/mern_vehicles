@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
 import carImg from './car inverse.png';
-import './car.css'
 
 class Car extends Component {
     render() {
+        const { color, speed } = this.props;
         const vehicleStyle = {
-            backgroundColor: 'red',
+            backgroundColor: color || 'black',
             width: '100%'
         }
 
         const wheelStyle = {
-            animationDuration: '3s'
+            animationDuration: (speed === 0) ? 0 : 30/this.props.speed+'s' // 0 if vehicle speed is 0
         }
         return (
             <div className='vehicle'>
                 <img src={carImg} style={vehicleStyle} alt='car'/>
-                <div class='wheel1' style={wheelStyle}>
-                    <div class='wheel-dot1'></div>
-                    <div class='wheel-dot2'></div>
-                    <div class='wheel-dot3'></div>
-                    <div class='wheel-dot4'></div>
+                <div className='wheel1' style={wheelStyle}>
+                    <div className='wheel-dot wheel-dot1'></div>
+                    <div className='wheel-dot wheel-dot2'></div>
+                    <div className='wheel-dot wheel-dot3'></div>
+                    <div className='wheel-dot wheel-dot4'></div>
                 </div>
-                <div class='wheel2' style={wheelStyle}>
-                    <div class='wheel-dot1'></div>
-                    <div class='wheel-dot2'></div>
-                    <div class='wheel-dot3'></div>
-                    <div class='wheel-dot4'></div>
+                <div className='wheel2' style={wheelStyle}>
+                    <div className='wheel-dot wheel-dot1'></div>
+                    <div className='wheel-dot wheel-dot2'></div>
+                    <div className='wheel-dot wheel-dot3'></div>
+                    <div className='wheel-dot wheel-dot4'></div>
                 </div>
             </div>
         )

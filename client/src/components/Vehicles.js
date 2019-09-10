@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListGroup, ListGroupItem, Button, Badge } from 'reactstrap';
+import { ListGroup, Button, Badge, Card, CardHeader, CardBody } from 'reactstrap';
 import { deleteVehicle, getVehicles, changeVehicleSpeed } from '../actions/vehiclesActions';
+import Car from './vehicles/Car';
+import Motorcycle from './vehicles/Motorcycle';
+import Truck from './vehicles/Truck';
 import PropTypes from 'prop-types';
+import './vehicles/style.css';
 
 class Vehicles extends Component {
 
@@ -23,38 +27,56 @@ class Vehicles extends Component {
         this.props.changeVehicleSpeed(id, this.state.speedChangeDiff);
     }
 
+    getVehicle = (type, speed, color) => {
+        switch(type){
+            case 'car':{
+                return <Car speed={speed} color={color}/>
+            }
+            case 'motorcycle':{
+                return <Motorcycle speed={speed} color={color} />
+            }
+            case 'truck':{
+                return <Truck speed={speed} color={color} />
+            }
+            default:
+                return null
+        }
+    }
+
     render() {
-        const speedButtonClasses = 'mr-3';
         const { vehicles } = this.props.vehicle;
         return (
             <div>
                 <ListGroup className='mb-3'>
                     {vehicles.map(vehicle => 
-                        <ListGroupItem key={vehicle._id}>
-                            <Button
-                                outline
-                                color='danger'
-                                size='sm'
-                                className='mr-2'
-                                onClick={this.props.deleteVehicle.bind(this, vehicle._id)}
-                            >&times;</Button>
-                            {vehicle.name}
-                            <Badge className='ml-2 mr-2' color='secondary'>{vehicle.speed} km/h</Badge>
-                            <Button
+                        <Card key={vehicle._id} className="text-center mb-3">
+                            <CardHeader>
+                                <Button
+                                    outline
+                                    color='danger'
+                                    size='sm'
+                                    className='mr-2'
+                                    onClick={this.props.deleteVehicle.bind(this, vehicle._id)}
+                                >&times;</Button>
+                                {vehicle.name}
+                            </CardHeader>
+                            <CardBody>
+                                {this.getVehicle(vehicle.type, vehicle.speed, vehicle.color)}
+                                <Button
+                                    outline 
+                                    color='warning' 
+                                    size='sm' 
+                                    onClick={this.decreaseSpeed.bind(this, vehicle._id)}
+                                >{this.props.winWidth < 700 ? '-' : 'Slow down'}</Button>
+                                <Badge className='ml-2 mr-2' color='secondary'>{vehicle.speed} km/h</Badge>
+                                <Button 
                                 outline 
-                                color='warning' 
+                                color='success' 
                                 size='sm' 
-                                className={speedButtonClasses} 
-                                onClick={this.decreaseSpeed.bind(this, vehicle._id)}
-                            >{this.props.winWidth < 700 ? '-' : 'Slow down'}</Button>
-                            <Button 
-                            outline 
-                            color='success' 
-                            size='sm' 
-                            className={speedButtonClasses} 
-                            onClick={this.increaseSpeed.bind(this, vehicle._id)}
-                            >{this.props.winWidth < 700 ? '+' : 'Speed up'}</Button>
-                        </ListGroupItem>
+                                onClick={this.increaseSpeed.bind(this, vehicle._id)}
+                                >{this.props.winWidth < 700 ? '+' : 'Speed up'}</Button>
+                            </CardBody>
+                        </Card>
                     )}
                 </ListGroup>
             </div>

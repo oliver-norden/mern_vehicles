@@ -1,43 +1,27 @@
-const express = require('express');
-const router = express.Router();
-const bcrypt = require('bcryptjs');
-const returnUser = require('./returnUser');
-const auth = require('../../middleware/auth');
+const config = (process.env.NODE_ENV === 'production') ? null : require('config');
+const jwt = require('jsonwebtoken');
 
-// User model
-const User = require('../../models/Users');
+function auth(req, res, next) {
+    // Attempt to get token from request header
+    const token = req.header('x-auth-token');
 
-// @route   POST api/users
-// @desc    Login user
-// @access  Public
-router.post('/', (req, res) => {
-    const { userName, password } = req.body; // Deconstruct user data from request
+    // Check for token
+    if (!token) return res.status(401).json({ msg: 'No token' });
 
-    // Validation
-    if (!userName || !password) return res.status(404).json({ msg: 'Please enter all fields' });
+    const jwtSecret = process.env.jwtSecret || config.get('jwtSecret');
 
-    // Check if user exists
-    User.findOne({ userName })
-        .then(user => {
-            if(!user) return res.status(400).json({ msg: 'Invalid username or password' }); // If user does not exists, respond with bad request status
+    try {
+        // Verify token
+        const decodedToken = jwt.verify(token, jwtSecret);
 
-            // Validate password
-                bcrypt.compare(password, user.password)
-                    .then(isMatch => {
-                        if(!isMatch) return res.status(400).json({ msg: 'Invalid username or password' }); // If password does not match, respond with bad request status
+        // Add user from token payload
+        req.user = decodedToken;
 
-                        returnUser(user, res);
-                    });
-        });
-});
+        next();
+    }
+    catch (e) {
+        res.status(400).json({ msg: 'Invalid token' });
+    }
+}
 
-// @route   GET api/auth/users
-// @desc    Get user data from id in token
-// @access  Private
-router.get('/user', auth, (req, res) => {
-    User.findById(req.user.id)
-        .select('-password')
-        .then(user => res.json(user));
-})
-
-module.exports = router;
+module.exports = auth;

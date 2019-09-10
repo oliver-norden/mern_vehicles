@@ -10,14 +10,16 @@ import axios from 'axios';
 import { createError } from './errorActions';
 
 export const loadUser = () => (dispatch, getState) => {
+    // Configure headers
+    const config = headerConfig(getState);
+
+    // Only continue if user has a token
+    if (!config.headers['x-auth-token']) return null;
 
     // Set user to loading
     dispatch({
         type: USER_LOADING
     });
-
-    // Configure headers
-    const config = headerConfig(getState);
 
     axios
         .get('/api/auth/user', config)

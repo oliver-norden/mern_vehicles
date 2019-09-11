@@ -3,8 +3,11 @@ MERN vehicles was created to display my capabilities in the MERN + Redux stack. 
 
 ## Vehicle icons credit
 [Car icon](https://pixabay.com/illustrations/car-car-icon-icon-automobile-2387235/)
+
 [Truck icon](https://commons.wikimedia.org/wiki/File:Sinnbild_LKW.svg)
+
 [Motorcycle icon](https://en.m.wikipedia.org/wiki/File:Sinnbild_Kraftrad.svg)
+
 Wheel animations based on [https://codepen.io/slyka85/pen/vLwboX](https://codepen.io/slyka85/pen/vLwboX)
 
 ## Run locally

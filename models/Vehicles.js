@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Create Vehicles Schema
-const VehicleSchema = new Schema({
+let VehicleSchema = new Schema({
     name: {
         type: String,
         required: false
@@ -36,5 +36,7 @@ const VehicleSchema = new Schema({
         required: false
     }
 });
+
+VehicleSchema.index({ date: 1 }, { expireAfterSeconds: 1200 });
 
 module.exports = Vehicle = mongoose.model('vehicle', VehicleSchema);

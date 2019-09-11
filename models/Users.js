@@ -2,7 +2,7 @@ const mongose = require('mongoose');
 const Schema = mongose.Schema;
 
 // Create users schema
-const UserSchema = new Schema({
+let UserSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -21,5 +21,7 @@ const UserSchema = new Schema({
         default: Date.now
     }
 });
+
+UserSchema.index({ date: 1 }, { expireAfterSeconds: 1200 });
 
 module.exports = User = mongose.model('vehicleUser', UserSchema);

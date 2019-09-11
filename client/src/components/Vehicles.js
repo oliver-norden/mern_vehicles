@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListGroup, Button, Badge, Card, CardHeader, CardBody } from 'reactstrap';
+import { ListGroup, Button, Badge, Card, CardHeader, CardBody, Alert } from 'reactstrap';
 import { deleteVehicle, changeVehicleSpeed } from '../actions/vehiclesActions';
 import Car from './vehicles/Car';
 import Motorcycle from './vehicles/Motorcycle';
@@ -11,8 +11,15 @@ import './vehicles/style.css';
 class Vehicles extends Component {
 
     state = {
-        speedChangeDiff: 5
+        speedChangeDiff: 5,
+        isAuthenticated: false
     };
+
+    componentDidUpdate(prevProps) {
+        if (this.props.isAuthenticated !== prevProps.isAuthenticated){
+            this.setState({ isAuthenticated: this.props.isAuthenticated })
+        }
+    }
 
     decreaseSpeed = id => {
         this.props.changeVehicleSpeed(id, -this.state.speedChangeDiff);
@@ -42,6 +49,7 @@ class Vehicles extends Component {
         const { vehicles } = this.props.vehicle;
         return (
             <div>
+                {!this.state.isAuthenticated ? <Alert color='info'>Please login to manage your vehicles</Alert> : null}
                 <ListGroup className='mb-3'>
                     {vehicles.map(vehicle => 
                         <Card key={vehicle._id} className="text-center mb-3">
@@ -83,12 +91,14 @@ Vehicles.propTypes = {
     vehicle: PropTypes.object.isRequired,
     deleteVehicle: PropTypes.func.isRequired,
     changeVehicleSpeed: PropTypes.func.isRequired,
-    winWidth: PropTypes.number.isRequired
+    winWidth: PropTypes.number.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
     vehicle: state.vehicles,
-    winWidth: state.app.width
+    winWidth: state.app.width,
+    isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, { deleteVehicle, changeVehicleSpeed })(Vehicles);

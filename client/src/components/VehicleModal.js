@@ -17,6 +17,7 @@ export class VehicleModal extends Component {
 
     state = {
         modalOpen: false,
+        isAuthenticated: false,
         vehicle: {
             name: '',
             type: '',
@@ -27,9 +28,14 @@ export class VehicleModal extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        const { vehicles, error } = this.props;
+        const { vehicles, error, isAuthenticated } = this.props;
         if (vehicles.length > prevProps.vehicles.length){
             this.setState({ modalOpen: false }); // Close modal when new vehicle is added
+        }
+
+        // Is authenticated
+        if (isAuthenticated !== prevProps.isAuthenticated){
+            this.setState({ isAuthenticated: isAuthenticated });
         }
 
         // Error msg
@@ -65,7 +71,8 @@ export class VehicleModal extends Component {
     }
 
     render() {
-        return (
+
+        return (this.state.isAuthenticated) ? ( // Only return if user is authenticated
             <div>
                 <Button
                     color='light'
@@ -110,7 +117,7 @@ export class VehicleModal extends Component {
                     </ModalBody>
                 </Modal>
             </div>
-        )
+        ) : null;
     }
 }
 
@@ -118,12 +125,14 @@ VehicleModal.propTypes = {
     addVehicle: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     vehicles: PropTypes.array.isRequired,
-    error: PropTypes.object.isRequired
+    error: PropTypes.object.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
     vehicles: state.vehicles.vehicles,
-    error: state.error
+    error: state.error,
+    isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, { addVehicle, clearErrors })(VehicleModal);

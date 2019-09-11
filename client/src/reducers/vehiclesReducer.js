@@ -1,4 +1,4 @@
-import { ADD_VEHICLE, GET_VEHICLES, DELETE_VEHICLE, VEHICLES_LOADING, UPDATE_VEHICLE } from '../actions/types';
+import { ADD_VEHICLE, GET_VEHICLES, CLEAR_VEHICLES, DELETE_VEHICLE, VEHICLES_LOADING, UPDATE_VEHICLE } from '../actions/types';
 
 const initialState = {
     vehicles: [],
@@ -20,6 +20,11 @@ export default function (state=initialState, action) {
                 ...state,
                 vehicles: action.payload,
                 loading: false
+            };
+        case CLEAR_VEHICLES:
+            return {
+                ...state,
+                vehicles: []
             };
         case DELETE_VEHICLE:
             return {

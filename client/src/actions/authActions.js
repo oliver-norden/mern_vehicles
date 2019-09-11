@@ -5,7 +5,8 @@ import { REG_FAIL,
     LOGOUT_SUCCESS, 
     USER_LOADED, 
     USER_FAIL, 
-    USER_LOADING } from './types';
+    USER_LOADING,
+    CLEAR_VEHICLES } from './types';
 import axios from 'axios';
 import { createError } from './errorActions';
 import { getVehicles } from './vehiclesActions';
@@ -44,10 +45,10 @@ export const register = ({ name, userName, password }) => (dispatch, getState) =
 
     axios
         .post('/api/users', body, config)
-            .then(res => dispatch({
-                type: REG_SUCCESS,
-                payload: res.data
-            }))
+            .then(res => {
+                dispatch({ type: REG_SUCCESS, payload: res.data });
+                dispatch(getVehicles());
+            })
             .catch(err => {
                 dispatch({ type: REG_FAIL });
                 dispatch(createError(err.response.status, err.response.data.msg, 'REG_ERROR'))
@@ -60,24 +61,23 @@ export const login = ({ userName, password }) => (dispatch, getState) => {
     const config = headerConfig(getState);
 
     // Request body
-    const body = JSON.stringify({ userName, password});
+    const body = JSON.stringify({ userName, password });
 
     axios
         .post('/api/auth/', body, config)
-            .then(res => dispatch({
-                type: LOGIN_SUCCESS,
-                payload: res.data
-            }))
+            .then(res => {
+                dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+                dispatch(getVehicles());
+            })
             .catch(err => {
                 dispatch({ type: LOGIN_FAIL });
                 dispatch(createError(err.response.status, err.response.data.msg, 'LOGIN_ERROR'));
             });
 }
 
-export const logout = () => {
-    return {
-        type: LOGOUT_SUCCESS
-    }
+export const logout = () => dispatch => {
+    dispatch({ type: LOGOUT_SUCCESS });
+    dispatch({ type: CLEAR_VEHICLES});
 }
 
 export default function headerConfig (getState) {

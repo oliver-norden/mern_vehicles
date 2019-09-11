@@ -10,7 +10,7 @@ class Truck extends Component {
         }
 
         const wheelStyle = {
-            animationDuration: (speed === 0) ? 0 : 30/this.props.speed+'s' // 0 if vehicle speed is 0
+            animationDuration: (speed === 0) ? 0+'s' : 30/this.props.speed+'s' // 0 if vehicle speed is 0
         }
         return (
             <div className='vehicle'>

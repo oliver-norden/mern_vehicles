@@ -34,18 +34,23 @@ export const deleteVehicle = id => (dispatch, getState) => {
             });
 }
 
-export const getVehicles = () => dispatch => {
+export const getVehicles = () => (dispatch, getState) => {
 
     // Set vehicles to loading
     dispatch(vehiclesLoading());
 
+    const config = headerConfig(getState);
+
     // Get vehicles from server and dispatch them
-    axios.get('/api/vehicles')
+    axios.get('/api/vehicles', config)
         .then(res=>
             dispatch({
                 type: GET_VEHICLES,
                 payload: res.data
-            }));
+            }))
+        .catch(err => {
+            dispatch(createError(err.response.status, err.response.data.msg, 'APP_ERROR'))
+        });
 }
 
 export const changeVehicleSpeed = (id, diff) => (dispatch, getState) => {

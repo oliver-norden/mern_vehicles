@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListGroup, Button, Badge, Card, CardHeader, CardBody } from 'reactstrap';
-import { deleteVehicle, getVehicles, changeVehicleSpeed } from '../actions/vehiclesActions';
+import { deleteVehicle, changeVehicleSpeed } from '../actions/vehiclesActions';
 import Car from './vehicles/Car';
 import Motorcycle from './vehicles/Motorcycle';
 import Truck from './vehicles/Truck';
@@ -13,11 +13,6 @@ class Vehicles extends Component {
     state = {
         speedChangeDiff: 5
     };
-
-    // Get vehicles when component has mounted
-    componentDidMount() {
-        this.props.getVehicles();
-    }
 
     decreaseSpeed = id => {
         this.props.changeVehicleSpeed(id, -this.state.speedChangeDiff);
@@ -87,7 +82,6 @@ class Vehicles extends Component {
 Vehicles.propTypes = {
     vehicle: PropTypes.object.isRequired,
     deleteVehicle: PropTypes.func.isRequired,
-    getVehicles: PropTypes.func.isRequired,
     changeVehicleSpeed: PropTypes.func.isRequired,
     winWidth: PropTypes.number.isRequired
 }
@@ -97,4 +91,4 @@ const mapStateToProps = state => ({
     winWidth: state.app.width
 });
 
-export default connect(mapStateToProps, { deleteVehicle, getVehicles, changeVehicleSpeed })(Vehicles);
+export default connect(mapStateToProps, { deleteVehicle, changeVehicleSpeed })(Vehicles);

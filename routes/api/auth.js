@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
         });
 });
 
-// @route   GET api/auth/users
+// @route   GET api/auth/user
 // @desc    Get user data from id in token
 // @access  Private
 router.get('/user', auth, (req, res) => {

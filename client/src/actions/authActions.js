@@ -8,6 +8,7 @@ import { REG_FAIL,
     USER_LOADING } from './types';
 import axios from 'axios';
 import { createError } from './errorActions';
+import { getVehicles } from './vehiclesActions';
 
 export const loadUser = () => (dispatch, getState) => {
     // Configure headers
@@ -23,10 +24,10 @@ export const loadUser = () => (dispatch, getState) => {
 
     axios
         .get('/api/auth/user', config)
-            .then(res => dispatch({
-                type: USER_LOADED,
-                payload: res.data
-            }))
+            .then(res => {
+                dispatch({ type: USER_LOADED, payload: res.data });
+                dispatch(getVehicles());
+            })
             .catch(err => {
                 dispatch({type: USER_FAIL});
                 dispatch(createError(err.response.status, err.response.data.msg, 'APP_ERROR'));

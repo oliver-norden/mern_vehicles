@@ -6,10 +6,10 @@ const auth = require('../../middleware/auth');
 const Vehicle = require('../../models/Vehicles');
 
 // @route   GET api/vehicles
-// @desc    Get all vehicles
-// @access  Public
-router.get('/', (req, res) => {
-    Vehicle.find()
+// @desc    Get user's vehicles
+// @access  Private
+router.get('/', auth, (req, res) => {
+    Vehicle.find({ userId: req.user.id})
         .sort({ date: -1 })
         .then(vehicles => res.json(vehicles))
 });

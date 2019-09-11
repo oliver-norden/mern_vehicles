@@ -12,6 +12,7 @@ import {
     NavLink } from 'reactstrap';
 import RegisterModal from './RegisterModal';
 import LoginModal from './LoginModal';
+import Guest from './Guest';
 
 class AppNavbar extends Component {
     state = {
@@ -41,6 +42,9 @@ class AppNavbar extends Component {
                                     </NavItem>
                                     <NavItem>
                                         <LoginModal />
+                                    </NavItem>
+                                    <NavItem>
+                                        <Guest />
                                     </NavItem>
                                 </>
                             }

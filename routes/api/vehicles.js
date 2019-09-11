@@ -24,7 +24,8 @@ router.post('/', auth, (req, res) => {
         return;
     }
     const newVehicle = new Vehicle({
-        ...req.body
+        ...req.body,
+        userId: req.user.id
     });
 
     newVehicle.save()
